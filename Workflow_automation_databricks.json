@@ -1,0 +1,140 @@
+{
+  "job_id": 1084950648763782,
+  "creator_user_name": "gouranamika25@gmail.com",
+  "run_as_user_name": "gouranamika25@gmail.com",
+  "run_as_owner": true,
+  "settings": {
+    "name": "Data-Model",
+    "email_notifications": {
+      "no_alert_for_skipped_runs": false
+    },
+    "webhook_notifications": {},
+    "timeout_seconds": 0,
+    "max_concurrent_runs": 1,
+    "tasks": [
+      {
+        "task_key": "Silver_Data",
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Cars_Project/Data Reading",
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "0212-023950-bc4ufcu9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      },
+      {
+        "task_key": "Dim_Branch",
+        "depends_on": [
+          {
+            "task_key": "Silver_Data"
+          }
+        ],
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Cars_Project/Gold_dim_branch",
+          "base_parameters": {
+            "inc_flag": "1"
+          },
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "0212-023950-bc4ufcu9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      },
+      {
+        "task_key": "Dim_Date",
+        "depends_on": [
+          {
+            "task_key": "Silver_Data"
+          }
+        ],
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Cars_Project/Gold_dim_date",
+          "base_parameters": {
+            "inc_flag": "1"
+          },
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "0212-023950-bc4ufcu9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      },
+      {
+        "task_key": "Dim_Dealer",
+        "depends_on": [
+          {
+            "task_key": "Silver_Data"
+          }
+        ],
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Cars_Project/Gold_dim_dealer",
+          "base_parameters": {
+            "inc_flag": "1"
+          },
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "0212-023950-bc4ufcu9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      },
+      {
+        "task_key": "Dim_Model",
+        "depends_on": [
+          {
+            "task_key": "Silver_Data"
+          }
+        ],
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Cars_Project/Gold_dim_model",
+          "base_parameters": {
+            "inc_flag": "1"
+          },
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "0212-023950-bc4ufcu9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      },
+      {
+        "task_key": "Fact_notebook",
+        "depends_on": [
+          {
+            "task_key": "Dim_Dealer"
+          },
+          {
+            "task_key": "Dim_Date"
+          },
+          {
+            "task_key": "Dim_Branch"
+          },
+          {
+            "task_key": "Dim_Model"
+          }
+        ],
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Cars_Project/Gold_Fact_Table",
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "0212-023950-bc4ufcu9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      }
+    ],
+    "format": "MULTI_TASK",
+    "queue": {
+      "enabled": true
+    }
+  },
+  "created_time": 1739695274195
+}
