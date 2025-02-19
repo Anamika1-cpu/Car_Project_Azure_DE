@@ -1,0 +1,9 @@
+{
+	"name": "adf-car-anamika",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6a793281-eab8-4e15-ba1f-ac7c20eea283",
+		"tenantId": "bfb31e1f-ece0-4d28-bb2b-a078002e46ea"
+	}
+}
